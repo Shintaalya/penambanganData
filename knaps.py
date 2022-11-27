@@ -1,136 +1,89 @@
+import sklearn
 import streamlit as st
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import StandardScaler
+import pandas as pd 
+import numpy as np 
+import warnings
+from sklearn.metrics import make_scorer, accuracy_score,precision_score
+warnings.filterwarnings('ignore', category=UserWarning, append=True)
+
+# data
+df = pd.read_csv("https://raw.githubusercontent.com/08-Ahlaqul-Karimah/machine-Learning/main/mushrooms.csv")
+df.head()
+
+# normalisasi
+# data yang dipakai 2000 data
+# pemisahan class dan fitur
+df=df[:2000]
+from sklearn.preprocessing import OrdinalEncoder
+x = df.drop(df[['class']],axis=1)
+enc = OrdinalEncoder()
+a = enc.fit_transform(x)
+x=pd.DataFrame(a, columns=x.columns)
+
+# class
+y = df.loc[:, "class"]
+y = df['class'].values
+
+# Split Data
 from sklearn.model_selection import train_test_split
-from collections import OrderedDict
-from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, f1_score
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import BaggingClassifier
-from sklearn.datasets import make_classification
-from sklearn.svm import SVC
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=1)
 
-st.write(""" 
-# Cek data
-""")
+st.set_page_config(page_title="Ima")
+@st.cache()
+def progress():
+    with st.spinner("Bentar ya....."):
+        time.sleep(1)
+        
+st.title("UAS PENDAT")
 
-st.write("=========================================================================")
+dataframe, preporcessing, modeling, implementation = st.tabs(
+    ["Jamur Data", "Prepocessing", "Modeling", "Implementation"])
 
-tab1, tab2, tab3, tab4 = st.tabs(["Import Data", "Preprocessing", "Modelling", "Evalutions"])
+with dataframe:
+    st.write('Data Jamur')
+    dataset,data= st.tabs(['Dataset',"data"])
+    with dataset:
+        st.dataframe(df)
 
-with tab1:
-    st.write("Import Data")
-    data = pd.read_csv("https://raw.githubusercontent.com/Shintaalya/Datafile/main/credit_score.csv")
-    st.dataframe(data)
+        
+with preporcessing:
+    st.write('Ordinal Encoder')
+    st.dataframe(x)
 
-with tab2:
-    data.head()
+with modeling:
+    # pisahkan fitur dan label
+    knn,lainnya= st.tabs(
+        ["K-Nearest Neighbor","lainnya"])
+    with knn:
+      from sklearn.neighbors import KNeighborsClassifier
+      knn = KNeighborsClassifier(n_neighbors=3)
+      knn.fit(x_train,y_train)
+      y_pred_knn = knn.predict(x_test) 
+      accuracy_knn=round(accuracy_score(y_test,y_pred_knn)* 100, 2)
+      acc_knn = round(knn.score(x_train, y_train) * 100, 2)
+      label_knn = pd.DataFrame(
+      data={'Label Test': y_test, 'Label Predict': y_pred_knn}).reset_index()
+      st.success(f'Tingkat akurasi = {acc_knn}')
+      st.dataframe(label_knn)
 
-    X = data.drop(columns=["risk_rating"])
-
-    X.head()
-
-    # Mengambil kolom Rata-rata overdue dan mentranformasi menggunakan one-hot encoding
-    rata_overdue = pd.get_dummies(X["rata_rata_overdue"], prefix="overdue")
-    X = X.join(rata_overdue)
-
-    X = X.drop(columns="rata_rata_overdue")
-
-    labels = data["risk_rating"]
-    # 
-    KPR_status = pd.get_dummies(X["kpr_aktif"], prefix="KPR")
-    X = X.join(KPR_status)
-
-    # remove "rata_rata_overdue" feature
-    X = X.drop(columns = "kpr_aktif")
-
-    st.write("Menampilkan dataframe yang rata-rata overdue, risk rating dan kpr aktif sudah di drop")
-    st.dataframe(X)
-
-    st.write(" ## Normalisasi")
-    st.write("Normalize feature 'pendapatan_setahun_juta', 'durasi_pinjaman_bulan', 'jumlah_tanggungan'")
-    old_normalize_feature_labels = ['pendapatan_setahun_juta', 'durasi_pinjaman_bulan', 'jumlah_tanggungan']
-    new_normalized_feature_labels = ['norm_pendapatan_setahun_juta', 'norm_durasi_pinjaman_bulan', 'norm_jumlah_tanggungan']
-    normalize_feature = data[old_normalize_feature_labels]
-
-    st.dataframe(normalize_feature)
-
-    scaler = MinMaxScaler()
-
-    scaler.fit(normalize_feature)
-
-    normalized_feature = scaler.transform(normalize_feature)
-
-    normalized_feature_df = pd.DataFrame(normalized_feature, columns = new_normalized_feature_labels)
-
-    st.write("Data setelah dinormalisasi")
-    st.dataframe(normalized_feature_df)
-
-    X = X.drop(columns = old_normalize_feature_labels)
-
-    X = X.join(normalized_feature_df)
-
-    X = X.join(labels)
-
-    st.write("Dataframe X baru")
-    st.dataframe(X)
-
-    subject_lables = ["Unnamed: 0",  "kode_kontrak"]
-    X = X.drop(columns = subject_lables)
-
-    # percent_amount_of_test_data = / HUNDRED_PERCENT
-    percent_amount_of_test_data = 0.3
-
-    st.write("Dataframe X baru yang tidak ada fitur/kolom unnamed: 0 dan kode kontrak")
-    st.dataframe(X)
-    st.write("## Hitung Data")
-    st.write("- Pisahkan kolom risk rating dari data frame")
-    st.write("- Ambil kolom 'risk rating' sebagai target kolom untuk kategori kelas")
-    st.write("- Pisahkan data latih dengan data tes")
-    st.write("""            Spliting Data
-
-                data latih (nilai data)
-                X_train 
-
-                data tes (nilai data)
-                X_test 
-
-                data latih (kelas data)
-                y_train
-
-                data tes (kelas data)
-                y_test""")
-
-    # separate target 
-
-    # values
-    matrices_X = X.iloc[:,0:10].values
-
-    # classes
-    matrices_Y = X.iloc[:,10].values
-
-    X_1 = X.iloc[:,0:10].values
-    Y_1 = X.iloc[:, -1].values
-
-    # X_train, X_test, y_train, y_test = train_test_split(matrices_X, matrices_Y, test_size = percent_amount_of_test_data, random_state=0)
-    X_train, X_test, y_train, y_test = train_test_split(X_1, Y_1, test_size = percent_amount_of_test_data, random_state=0)
-
-    st.write("Menampilkan Y_1")
-    st.write(Y_1)
-    
-    st.write("Menampilkan X_1")
-    st.write(X_1)
-    ### Dictionary to store model and its accuracy
-
-    model_accuracy = OrderedDict()
-
-    ### Dictionary to store model and its precision
-
-    model_precision = OrderedDict()
-
-    ### Dictionary to store model and its recall
-
-    model_recall = OrderedDict()
+with implementation:
+      df=df[:2000]
+      from sklearn.preprocessing import OrdinalEncoder
+      x = df.drop(df[['class']],axis=1)
+      enc = OrdinalEncoder()
+      a = enc.fit_transform(x)
+      x=pd.DataFrame(a, columns=x.columns)
+#       x_new = ['x','y','y','t','l','f','c','b','g','e','c','s','s','w','w','p','w','o','p','k','s','m'] # hasil=0/e
+      x_new = ["x","s","w","t","p","f","c","n","k","e","e","s","s","w","w","p","w","o","p","k","v","g"] # hasil=1/p
+      hinput=enc.transform(np.array([x_new]))
+      hinput
+      from sklearn.neighbors import KNeighborsClassifier
+      knn = KNeighborsClassifier(n_neighbors=3)
+      knn.fit(x_train,y_train)
+      Y_pred = knn.predict(x_test) 
+      accuracy_knn=round(accuracy_score(y_test,Y_pred)* 100, 2)
+      acc_knn = round(knn.score(x_train, y_train) * 100, 2)
+      accuracy_knn
+      acc_knn
+      y_predict = knn.predict(hinput)
+      st.write("Hasil prediksi adalah",y_predict[0])
