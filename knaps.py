@@ -28,34 +28,3 @@ with tab1:
 
 with tab2:
     data.head()
-    
-    # separate target 
-
-    # values
-    matrices_X = X.iloc[:,0:10].values
-
-    # classes
-    matrices_Y = X.iloc[:,10].values
-
-    X_1 = X.iloc[:,0:10].values
-    Y_1 = X.iloc[:, -1].values
-
-    # X_train, X_test, y_train, y_test = train_test_split(matrices_X, matrices_Y, test_size = percent_amount_of_test_data, random_state=0)
-    X_train, X_test, y_train, y_test = train_test_split(X_1, Y_1, test_size = percent_amount_of_test_data, random_state=0)
-
-    st.write("Menampilkan Y_1")
-    st.write(Y_1)
-    
-    st.write("Menampilkan X_1")
-    st.write(X_1)
-    ### Dictionary to store model and its accuracy
-
-    model_accuracy = OrderedDict()
-
-    ### Dictionary to store model and its precision
-
-    model_precision = OrderedDict()
-
-    ### Dictionary to store model and its recall
-
-    model_recall = OrderedDict()
