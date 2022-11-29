@@ -27,7 +27,7 @@ tab1, tab2, tab3, tab4 = st.tabs(["Import Data", "Preprocessing", "Modelling", "
 with tab1:
     st.write("Import Data")
     df = pd.read_csv("https://raw.githubusercontent.com/Shintaalya/Datafile/main/mushrooms.csv")
-    st.dataframe(data)
+    st.dataframe(df)
 
 with tab2:
     df.head()
