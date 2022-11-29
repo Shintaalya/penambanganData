@@ -31,3 +31,17 @@ with tab1:
 
 with tab2:
     data.head()
+    
+    df.isnull().sum()
+    
+    st.write("Mengubah Char Label Menjadi Numerik")
+    df = df.apply(lambda col: pd.factorize (col, sort=True)[0])
+    df
+    
+    st.write("Keterangan :")
+    st.write("1 = tidak dapat dimakan")
+    st.write("0 = dapat dimakan")
+    
+    st.write("pembagian x dan y")
+    X = df.iloc[:,1:].values
+    y = df.iloc[:,0].values 
