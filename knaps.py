@@ -41,7 +41,29 @@ with tab2:
     st.write("Keterangan :")
     st.write("1 = tidak dapat dimakan")
     st.write("0 = dapat dimakan")
+ 
+with tab3:
+    st.write(""#Metode"")
+    st.write("1. KNN")
     
-    st.write("pembagian x dan y")
+    st.write("Pembagian x dan y")
     X = df.iloc[:,1:].values
     y = df.iloc[:,0].values 
+    
+    st.write("#mencari K terbaik (1-10) dulu")
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=3)
+
+    print("K\tAkurasi")
+    list_k = []
+
+    for i in range(1,11):
+        classifier = KNeighborsClassifier(n_neighbors=i)
+        classifier.fit(X_train, y_train)
+        acc = classifier.score(X_test, y_test)
+        list_k.append(acc)
+        print(str(i)+"\t"+str(acc))
+
+    print()
+    print("Akurasi tertinggi \t: "+str(max(list_k)))
+    tertinggi = list_k.index(max(list_k))+1
+    print("Berarti K nya adalah \t: "+(str(tertinggi)))
