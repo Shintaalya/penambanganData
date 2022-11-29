@@ -49,6 +49,7 @@ with tab3:
     st.write("Pembagian x dan y")
     X = df.iloc[:,1:].values
     y = df.iloc[:,0].values 
+    df
     
     st.write("#mencari K terbaik (1-10) dulu")
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=3)
@@ -67,3 +68,4 @@ with tab3:
     print("Akurasi tertinggi \t: "+str(max(list_k)))
     tertinggi = list_k.index(max(list_k))+1
     print("Berarti K nya adalah \t: "+(str(tertinggi)))
+    df
