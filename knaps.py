@@ -14,12 +14,13 @@ from sklearn.datasets import make_classification
 from sklearn.svm import SVC
 
 st.write(""" 
-# Data Kelas Online
+# Kelayakan Makan Jamur
 """)
 
 st.write("=========================================================================")
 
 st.write("Shinta Alya Imani Putri")
+st.write("200411100005")
 
 tab1, tab2, tab3, tab4 = st.tabs(["Import Data", "Preprocessing", "Modelling", "Evalutions"])
 
