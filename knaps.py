@@ -43,7 +43,7 @@ with tab2:
     st.write("0 = dapat dimakan")
  
 with tab3:
-    st.write(""#Metode"")
+    st.write("#Metode")
     st.write("1. KNN")
     
     st.write("Pembagian x dan y")
