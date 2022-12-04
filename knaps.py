@@ -43,29 +43,78 @@ with tab2:
     st.write("0 = dapat dimakan")
  
 with tab3:
-    st.write("#Metode")
-    st.write("1. KNN")
+    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=4)
+    from sklearn.preprocessing import StandardScaler
+    sc = StandardScaler()
+    X_train = sc.fit_transform(X_train)
+    X_test = sc.transform(X_test)
+    # from sklearn.feature_extraction.text import CountVectorizer
+    # cv = CountVectorizer()
+    # X_train = cv.fit_transform(X_train)
+    # X_test = cv.fit_transform(X_test)
+    st.write("""# Modeling """)
+    st.subheader("Berikut ini adalah pilihan untuk Modeling")
+    st.write("Pilih Model yang Anda inginkan untuk Cek Akurasi")
+    naive = st.checkbox('Naive Bayes')
+    kn = st.checkbox('K-Nearest Neighbor')
+    des = st.checkbox('Decision Tree')
+    mod = st.button("Modeling")
+
+    # NB
+    GaussianNB(priors=None)
+
+    # Fitting Naive Bayes Classification to the Training set with linear kernel
+    nvklasifikasi = GaussianNB()
+    nvklasifikasi = nvklasifikasi.fit(X_train, y_train)
+
+
+    # Predicting the Test set results
+    y_pred = nvklasifikasi.predict(X_test)
     
-    st.write("Pembagian x dan y")
-    X = df.iloc[:,1:].values
-    y = df.iloc[:,0].values 
-    df
+    y_compare = np.vstack((y_test,y_pred)).T
+    nvklasifikasi.predict_proba(X_test)
+    akurasi = round(100 * accuracy_score(y_test, y_pred))
+    # akurasi = 10
+
+    # KNN 
+    K=10
+    knn=KNeighborsClassifier(n_neighbors=K)
+    knn.fit(X_train,y_train)
+    y_pred=knn.predict(X_test)
+
+    skor_akurasi = round(100 * accuracy_score(y_test,y_pred))
+
+    # DT
+
+    dt = DecisionTreeClassifier()
+    dt.fit(X_train, y_train)
+    # prediction
+    dt.score(X_test, y_test)
+    y_pred = dt.predict(X_test)
+    #Accuracy
+    akurasiii = round(100 * accuracy_score(y_test,y_pred))
+
+    if naive :
+        if mod :
+            st.write('Model Naive Bayes accuracy score: {0:0.2f}'. format(akurasi))
+    if kn :
+        if mod:
+            st.write("Model KNN accuracy score : {0:0.2f}" . format(skor_akurasi))
+    if des :
+        if mod :
+            st.write("Model Decision Tree accuracy score : {0:0.2f}" . format(akurasiii))
     
-    st.write("#mencari K terbaik (1-10) dulu")
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=3)
+    eval = st.button("Evaluasi semua model")
+    if eval :
+        # st.snow()
+        source = pd.DataFrame({
+            'Nilai Akurasi' : [akurasi,skor_akurasi,akurasiii],
+            'Nama Model' : ['Naive Bayes','KNN','Decision Tree']
+        })
 
-    print("K\tAkurasi")
-    list_k = []
+        bar_chart = alt.Chart(source).mark_bar().encode(
+            y = 'Nilai Akurasi',
+            x = 'Nama Model'
+        )
 
-    for i in range(1,11):
-        classifier = KNeighborsClassifier(n_neighbors=i)
-        classifier.fit(X_train, y_train)
-        acc = classifier.score(X_test, y_test)
-        list_k.append(acc)
-        print(str(i)+"\t"+str(acc))
-
-    print()
-    print("Akurasi tertinggi \t: "+str(max(list_k)))
-    tertinggi = list_k.index(max(list_k))+1
-    print("Berarti K nya adalah \t: "+(str(tertinggi)))
-    df
+        st.altair_chart(bar_chart,use_container_width=True)
