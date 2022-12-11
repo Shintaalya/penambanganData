@@ -42,7 +42,7 @@ with preprocessing:
     """)
     
     #Mendefinisikan Varible X dan Y
-    X = df[['diameter', 'weight', 'red', 'green', 'blue']]
+    X = df[['name','diameter','weight','red','green','blue']]
     y = df['name'].values
     df
     X
