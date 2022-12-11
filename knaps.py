@@ -24,13 +24,13 @@ description, upload_data, preprocessing, modeling, implementation = st.tabs(["De
 with description:
     st.write("""# Description """)
     st.write("Data Set Ini Adalah : Prediksi Cuaca")
-    st.write("""Menggunakan Kolom  :""")
-    st.write("1. curah hujan")
-    st.write("2. suhu maks * suhu min")
-    st.write("3. angin")
-    st.write("Kita akan memprediksi kondisi cuaca :")
-    st.write("a. gerimis")
-    st.write("b. hujan")
+    st.write("""Menggunakan Kolom  :
+    1. curah hujan
+    2. suhu maks * suhu min
+    3. kecepatan angin""")
+    st.write("""Kita akan memprediksi kondisi cuaca :
+    a. gerimis
+    b. hujan
     st.write("c. matahari")
     st.write("d. salju")
     st.write("e. kabut")
