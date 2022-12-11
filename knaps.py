@@ -62,7 +62,7 @@ with preprocessing:
     st.write(scaled_features)
 
     st.subheader('Target Label')
-    dumies = pd.get_dummies(df.weather).columns.values.tolist()
+    dumies = pd.get_dummies(df.Group).columns.values.tolist()
     dumies = np.array(dumies)
 
     labels = pd.DataFrame({
