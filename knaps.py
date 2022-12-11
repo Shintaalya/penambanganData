@@ -40,9 +40,9 @@ with preprocessing:
     - min = nilai minimum semua data asli
     - max = nilai maksimum semua data asli
     """)
-    df = df.drop(columns=['Subject ID','MRI ID','M/F','Hand','SES'])
+    df = df.drop(columns=['Subject ID','EDUC','MRI ID','M/F','Hand','SES'])
     #Mendefinisikan Varible X dan Y
-    X = df[['Visit','MR Delay','Age','EDUC','MMSE','CDR','eTIV','nWBV','ASF']]
+    X = df[['Visit','MR Delay','Age','MMSE','CDR','eTIV','nWBV','ASF']]
     y = df['Group'].values
     df
     X
@@ -74,7 +74,7 @@ with preprocessing:
         '6' : [dumies[5]],
         '7' : [dumies[6]],
         '8' : [dumies[7]],
-        '9' : [dumies[8]]
+        
     })
 
     st.write(labels)
