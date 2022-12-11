@@ -51,7 +51,7 @@ with preprocessing:
     """)
     df = df.drop(columns=['date'])
     #Mendefinisikan Varible X dan Y
-    X = df[['precipitation','temp_max','temp_min','wind','weather']]
+    X = df[['precipitation','temp_max','temp_min','wind']]
     y = df['weather'].values
     df
     X
