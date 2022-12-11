@@ -18,8 +18,8 @@ st.title("Web Apps - Classification Fruit With Color")
 
 st.write("================================================================================")
 
-st.write("Name :Shinta Nuriyatul Mahmudiyah")
-st.write("Nim  :200411100135")
+st.write("Name :Shinta Alya Imani Putri")
+st.write("Nim  :200411100005")
 st.write("Grade: Penambangan Data A")
 
 data_set_description, data, preprocessing, modeling, implementation = st.tabs(["Data Set Description", "Data", "Preprocessing", "Modeling", "Implementation"])
@@ -97,7 +97,7 @@ with preprocessing:
     """)
     
     #Mendefinisikan Varible X dan Y
-    X = df[["diameter","weight","red","green","blue"]]
+    X = df[['diameter','weight','red','green','blue']]
     y = df["name"].values
     df
     X
@@ -123,8 +123,7 @@ with preprocessing:
     labels = pd.DataFrame({
         '1' : [dumies[0]],
         '2' : [dumies[1]],
-        '3' : [dumies[2]],
-        '4' : [dumies[3]],
+        
         
     })
 
