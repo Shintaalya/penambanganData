@@ -169,10 +169,10 @@ with modeling:
 with implementation:
     with st.form("my_form"):
         st.subheader("Implementasi")
-        Weight = st.number_input('Masukkan berat ikan (Weight) : ')
-        Length1 = st.number_input('Masukkan panjang vertikal ikan (Length1) : ')
-        Height = st.number_input('Masukkan tinggi ikan (Height) : ')
-        Width = st.number_input('Masukkan lebar ikan (Width) : ')
+        Weight = st.number_input('Masukkan curah hujan (precipitation) : ')
+        Length1 = st.number_input('Masukkan suhu maksimum (temp_max) : ')
+        Height = st.number_input('Masukkan suhu minimal (temp_min) : ')
+        Width = st.number_input('Masukkan kecepatan angin (wind) : ')
         
         model = st.selectbox('Pilihlah model yang akan anda gunakan untuk melakukan prediksi?',
                 ('Gaussian Naive Bayes', 'K-NN', 'Decision Tree'))
