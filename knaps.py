@@ -14,7 +14,7 @@ from sklearn.tree import DecisionTreeClassifier
 # warnings.filterwarnings("ignore")
 
 
-st.title("Prediksi Cuaca")
+st.title("Prediksi Demensia")
 st.write("======================================================")
 st.write("Shinta Alya Imani Putri")
 st.write("200411100005")
@@ -74,7 +74,7 @@ with preprocessing:
         '6' : [dumies[5]],
         '7' : [dumies[6]],
         '8' : [dumies[7]],
-        
+        '9' : [dumies[8]],
     })
 
     st.write(labels)
