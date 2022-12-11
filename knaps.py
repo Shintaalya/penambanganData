@@ -166,7 +166,7 @@ with implementation:
     with st.form("my_form"):
         st.subheader("Implementasi")
         Visit = st.number_input('Masukkan visit (Visit) : ')
-        MR Delay = st.number_input('Masukkan mr delay (MR Delay) : ')
+        MR_Delay = st.number_input('Masukkan mr delay (MR Delay) : ')
         Age = st.number_input('Masukkan age (Age) : ')
         Educ = st.number_input('Masukkan educ (Educ) : ')
         MMSE = st.number_input('Masukkan mmse (MMSE) : ')
