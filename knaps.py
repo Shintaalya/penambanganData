@@ -42,7 +42,7 @@ with preprocessing:
     """)
     df = df.drop(columns=['Subject ID','MRI ID','M/F','Hand','SES'])
     #Mendefinisikan Varible X dan Y
-    X = df[['Visit','MR Delay','Age','MMSE','CDR','eTIV','nWBV','ASF']]
+    X = df[['eTIV', 'nWBV', 'ASF', 'CDR']]
     y = df['Group'].values
     df
     X
