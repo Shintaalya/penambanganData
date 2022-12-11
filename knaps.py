@@ -165,10 +165,15 @@ with modeling:
 with implementation:
     with st.form("my_form"):
         st.subheader("Implementasi")
-        Weight = st.number_input('Masukkan curah hujan (precipitation) : ')
-        Length1 = st.number_input('Masukkan suhu maksimum (temp_max) : ')
-        Height = st.number_input('Masukkan suhu minimal (temp_min) : ')
-        Width = st.number_input('Masukkan kecepatan angin (wind) : ')
+        Visit = st.number_input('Masukkan visit (Visit) : ')
+        MR Delay = st.number_input('Masukkan mr delay (MR Delay) : ')
+        Age = st.number_input('Masukkan age (Age) : ')
+        Educ = st.number_input('Masukkan educ (Educ) : ')
+        MMSE = st.number_input('Masukkan mmse (MMSE) : ')
+        CDR = st.number_input('Masukkan cdr (CDR) : ')
+        eTIV = st.number_input('Masukkan etiv (eTIV) : ')
+        nWBV = st.number_input('Masukkan nwbv (nWBV) : ')
+        ASF = st.number_input('Masukkan asf (ASF) : ')
         
         model = st.selectbox('Pilihlah model yang akan anda gunakan untuk melakukan prediksi?',
                 ('Gaussian Naive Bayes', 'K-NN', 'Decision Tree'))
