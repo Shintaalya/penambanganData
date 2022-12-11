@@ -71,8 +71,7 @@ with preprocessing:
         '3' : [dumies[2]],
         '4' : [dumies[3]],
         '5' : [dumies[4]],
-        '6' : [dumies[5]],
-        '7' : [dumies[6]],
+        
         
     })
 
