@@ -41,6 +41,7 @@ with preprocessing:
     - max = nilai maksimum semua data asli
     """)
     df = df.drop(columns=['Subject ID','MRI ID'])
+    
     #Mendefinisikan Varible X dan Y
     X = df[['eTIV', 'nWBV', 'ASF', 'CDR']]
     y = df['Group'].values
