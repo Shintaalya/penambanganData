@@ -34,9 +34,7 @@ with data_set_description:
     3. Weight
     4. Red
     5. Green
-    6. Blue
-   
-    """)
+    6. Blue""")
     
 with data:
     df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/citrus.csv')
