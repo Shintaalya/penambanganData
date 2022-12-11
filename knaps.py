@@ -24,10 +24,10 @@ description, upload_data, preprocessing, modeling, implementation = st.tabs(["De
 with description:
     st.write("""# Description """)
     st.write("Data Set Ini Adalah : Prediksi Demensia")
-    st.write("Demensia adalah suatu sindrom – biasanya bersifat kronis atau progresif – di mana terjadi penurunan fungsi kognitif (yaitu kemampuan memproses pikiran) melebihi apa yang diharapkan dari penuaan normal. Itu mempengaruhi memori, pemikiran, orientasi, pemahaman, perhitungan, kapasitas belajar, bahasa, dan penilaian. Kesadaran tidak terpengaruh. Penurunan fungsi kognitif biasanya disertai dan kadang-kadang didahului oleh penurunan kontrol emosi, perilaku sosial, atau motivasi. Demensia diakibatkan oleh berbagai penyakit dan cedera yang terutama atau sekunder mempengaruhi otak, seperti penyakit Alzheimer atau stroke.")
+    st.write("msosial, atau motivasi. Demenyakit Alzheimer atau stroke.")
 
 with upload_data:
-    df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/Stars.csv')
+    df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/citrus.csv')
     st.dataframe(df)
 
 with preprocessing:
@@ -40,11 +40,10 @@ with preprocessing:
     - min = nilai minimum semua data asli
     - max = nilai maksimum semua data asli
     """)
-    df = df.drop(columns=['Subject ID','MRI ID'])
     
     #Mendefinisikan Varible X dan Y
-    X = df[['eTIV', 'nWBV', 'ASF', 'CDR']]
-    y = df['Group'].values
+    X = df[['diameter', 'weight', 'red', 'green', 'blue']]
+    y = df['name'].values
     df
     X
     df_min = X.min()
@@ -63,7 +62,7 @@ with preprocessing:
     st.write(scaled_features)
 
     st.subheader('Target Label')
-    dumies = pd.get_dummies(df.Group).columns.values.tolist()
+    dumies = pd.get_dummies(df.name).columns.values.tolist()
     dumies = np.array(dumies)
 
     labels = pd.DataFrame({
