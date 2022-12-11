@@ -1,120 +1,222 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
+import numpy as np
+from PIL import Image
+import altair as alt
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import StandardScaler
+from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
-from collections import OrderedDict
+from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, f1_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import BaggingClassifier
-from sklearn.datasets import make_classification
-from sklearn.svm import SVC
+# import warnings
+# warnings.filterwarnings("ignore")
 
-st.write(""" 
-# Kelayakan Makan Jamur
-""")
 
-st.write("=========================================================================")
+st.title("Prediksi Cuaca")
 
-st.write("Shinta Alya Imani Putri")
-st.write("200411100005")
+description, upload_data, preprocessing, modeling, implementation = st.tabs(["Description", "Data", "Preprocessing", "Modeling", "Implementation"])
 
-tab1, tab2, tab3, tab4 = st.tabs(["Import Data", "Preprocessing", "Modelling", "Evalutions"])
+with description:
+    st.write("======================================================")
+    st.write("Shinta Alya Imani Putri")
+    st.write("200411100005")
+    st.write("""# Description """)
+    st.write("Data Set Ini Adalah : Prediksi Cuaca")
+    st.write("""Menggunakan Kolom  : 
+    * curah hujan
+    * suhu maks * suhu min
+    * angin
+    Kita akan memprediksi kondisi cuaca :
+    * gerimis
+    * hujan
+    * matahari
+    * salju
+    * kabut""")
 
-with tab1:
-    st.write("Import Data")
-    df = pd.read_csv("https://raw.githubusercontent.com/Shintaalya/Datafile/main/mushrooms.csv")
+    Output (keluaran)
+    """)
+    st.write("""Menggunakan Kolom (input) :
+
+    precipitation
+    tempmax * tempmin
+    wind
+    """)
+    
+    """)
+
+
+with upload_data:
+    df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/seattle-weather.csv')
     st.dataframe(df)
 
-with tab2:
-    df.head()
-    
-    df.isnull().sum()
-    
-    st.write("Mengubah Char Label Menjadi Numerik")
-    df = df.apply(lambda col: pd.factorize (col, sort=True)[0])
+with preprocessing:
+    st.subheader("""Normalisasi Data""")
+    st.write("""Rumus Normalisasi Data :""")
+    st.image('https://i.stack.imgur.com/EuitP.png', use_column_width=False, width=250)
+    st.markdown("""
+    Dimana :
+    - X = data yang akan dinormalisasi atau data asli
+    - min = nilai minimum semua data asli
+    - max = nilai maksimum semua data asli
+    """)
+    df = df.drop(columns=['Length2','Length3'])
+    #Mendefinisikan Varible X dan Y
+    X = df[['Weight','Length1','Height','Width']]
+    y = df['Species'].values
     df
+    X
+    df_min = X.min()
+    df_max = X.max()
     
-    st.write("Keterangan :")
-    st.write("1 = tidak dapat dimakan")
-    st.write("0 = dapat dimakan")
- 
-with tab3:
-    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=4)
-    from sklearn.preprocessing import StandardScaler
-    sc = StandardScaler()
-    X_train = sc.fit_transform(X_train)
-    X_test = sc.transform(X_test)
-    # from sklearn.feature_extraction.text import CountVectorizer
-    # cv = CountVectorizer()
-    # X_train = cv.fit_transform(X_train)
-    # X_test = cv.fit_transform(X_test)
-    st.write("""# Modeling """)
-    st.subheader("Berikut ini adalah pilihan untuk Modeling")
-    st.write("Pilih Model yang Anda inginkan untuk Cek Akurasi")
-    naive = st.checkbox('Naive Bayes')
-    kn = st.checkbox('K-Nearest Neighbor')
-    des = st.checkbox('Decision Tree')
-    mod = st.button("Modeling")
+    #NORMALISASI NILAI X
+    scaler = MinMaxScaler()
+    #scaler.fit(features)
+    #scaler.transform(features)
+    scaled = scaler.fit_transform(X)
+    features_names = X.columns.copy()
+    #features_names.remove('label')
+    scaled_features = pd.DataFrame(scaled, columns=features_names)
 
-    # NB
-    GaussianNB(priors=None)
+    st.subheader('Hasil Normalisasi Data')
+    st.write(scaled_features)
 
-    # Fitting Naive Bayes Classification to the Training set with linear kernel
-    nvklasifikasi = GaussianNB()
-    nvklasifikasi = nvklasifikasi.fit(X_train, y_train)
+    st.subheader('Target Label')
+    dumies = pd.get_dummies(df.Species).columns.values.tolist()
+    dumies = np.array(dumies)
 
+    labels = pd.DataFrame({
+        '1' : [dumies[0]],
+        '2' : [dumies[1]],
+        '3' : [dumies[2]],
+        '4' : [dumies[3]],
+        '5' : [dumies[4]],
+        '6' : [dumies[5]],
+        '7' : [dumies[6]],
+        
+    })
 
-    # Predicting the Test set results
-    y_pred = nvklasifikasi.predict(X_test)
+    st.write(labels)
+
+   
+with modeling:
+    training, test = train_test_split(scaled_features,test_size=0.2, random_state=1)#Nilai X training dan Nilai X testing
+    training_label, test_label = train_test_split(y, test_size=0.2, random_state=1)#Nilai Y training dan Nilai Y testing
+    with st.form("modeling"):
+        st.subheader('Modeling')
+        st.write("Pilihlah model yang akan dilakukan pengecekkan akurasi:")
+        naive = st.checkbox('Gaussian Naive Bayes')
+        k_nn = st.checkbox('K-Nearest Neighboor')
+        destree = st.checkbox('Decission Tree')
+        submitted = st.form_submit_button("Submit")
+
+        # NB
+        GaussianNB(priors=None)
+
+        # Fitting Naive Bayes Classification to the Training set with linear kernel
+        gaussian = GaussianNB()
+        gaussian = gaussian.fit(training, training_label)
+
+        # Predicting the Test set results
+        y_pred = gaussian.predict(test)
     
-    y_compare = np.vstack((y_test,y_pred)).T
-    nvklasifikasi.predict_proba(X_test)
-    akurasi = round(100 * accuracy_score(y_test, y_pred))
-    # akurasi = 10
+        y_compare = np.vstack((test_label,y_pred)).T
+        gaussian.predict_proba(test)
+        gaussian_akurasi = round(100 * accuracy_score(test_label, y_pred))
+        # akurasi = 10
 
-    # KNN 
-    K=10
-    knn=KNeighborsClassifier(n_neighbors=K)
-    knn.fit(X_train,y_train)
-    y_pred=knn.predict(X_test)
+        #Gaussian Naive Bayes
+        # gaussian = GaussianNB()
+        # gaussian = gaussian.fit(training, training_label)
 
-    skor_akurasi = round(100 * accuracy_score(y_test,y_pred))
+        # probas = gaussian.predict_proba(test)
+        # probas = probas[:,1]
+        # probas = probas.round()
 
-    # DT
+        # gaussian_akurasi = round(100 * accuracy_score(test_label,probas))
 
-    dt = DecisionTreeClassifier()
-    dt.fit(X_train, y_train)
-    # prediction
-    dt.score(X_test, y_test)
-    y_pred = dt.predict(X_test)
-    #Accuracy
-    akurasiii = round(100 * accuracy_score(y_test,y_pred))
+        #KNN
+        K=10
+        knn=KNeighborsClassifier(n_neighbors=K)
+        knn.fit(training,training_label)
+        knn_predict=knn.predict(test)
 
-    if naive :
-        if mod :
-            st.write('Model Naive Bayes accuracy score: {0:0.2f}'. format(akurasi))
-    if kn :
-        if mod:
-            st.write("Model KNN accuracy score : {0:0.2f}" . format(skor_akurasi))
-    if des :
-        if mod :
-            st.write("Model Decision Tree accuracy score : {0:0.2f}" . format(akurasiii))
-    
-    eval = st.button("Evaluasi semua model")
-    if eval :
-        # st.snow()
-        source = pd.DataFrame({
-            'Nilai Akurasi' : [akurasi,skor_akurasi,akurasiii],
-            'Nama Model' : ['Naive Bayes','KNN','Decision Tree']
-        })
+        knn_akurasi = round(100 * accuracy_score(test_label,knn_predict))
 
-        bar_chart = alt.Chart(source).mark_bar().encode(
-            y = 'Nilai Akurasi',
-            x = 'Nama Model'
-        )
+        #Decission Tree
+        dt = DecisionTreeClassifier()
+        dt.fit(training, training_label)
+        # prediction
+        dt_pred = dt.predict(test)
+        #Accuracy
+        dt_akurasi = round(100 * accuracy_score(test_label,dt_pred))
 
-        st.altair_chart(bar_chart,use_container_width=True)
+        if submitted :
+            if naive :
+                st.write('Model Naive Bayes accuracy score: {0:0.2f}'. format(gaussian_akurasi))
+            if k_nn :
+                st.write("Model KNN accuracy score : {0:0.2f}" . format(knn_akurasi))
+            if destree :
+                st.write("Model Decision Tree accuracy score : {0:0.2f}" . format(dt_akurasi))
+        
+        grafik = st.form_submit_button("Grafik akurasi semua model")
+        if grafik:
+            data = pd.DataFrame({
+                'Akurasi' : [gaussian_akurasi, knn_akurasi, dt_akurasi],
+                'Model' : ['Gaussian Naive Bayes', 'K-NN', 'Decission Tree'],
+            })
+
+            chart = (
+                alt.Chart(data)
+                .mark_bar()
+                .encode(
+                    alt.X("Akurasi"),
+                    alt.Y("Model"),
+                    alt.Color("Akurasi"),
+                    alt.Tooltip(["Akurasi", "Model"]),
+                )
+                .interactive()
+            )
+            st.altair_chart(chart,use_container_width=True)
+  
+with implementation:
+    with st.form("my_form"):
+        st.subheader("Implementasi")
+        Weight = st.number_input('Masukkan berat ikan (Weight) : ')
+        Length1 = st.number_input('Masukkan panjang vertikal ikan (Length1) : ')
+        Height = st.number_input('Masukkan tinggi ikan (Height) : ')
+        Width = st.number_input('Masukkan lebar ikan (Width) : ')
+        
+        model = st.selectbox('Pilihlah model yang akan anda gunakan untuk melakukan prediksi?',
+                ('Gaussian Naive Bayes', 'K-NN', 'Decision Tree'))
+
+        prediksi = st.form_submit_button("Submit")
+        if prediksi:
+            inputs = np.array([
+                Weight,
+                Length1,
+                Height,
+                Width
+            ])
+
+            df_min = X.min()
+            df_max = X.max()
+            input_norm = ((inputs - df_min) / (df_max - df_min))
+            input_norm = np.array(input_norm).reshape(1, -1)
+
+            if model == 'Gaussian Naive Bayes':
+                mod = gaussian
+            if model == 'K-NN':
+                mod = knn 
+            if model == 'Decision Tree':
+                mod = dt
+
+               
+            input_pred = mod.predict(input_norm)
+
+
+            st.subheader('Hasil Prediksi')
+            st.write('Menggunakan Pemodelan :', model)
+
+            st.write(input_pred)
