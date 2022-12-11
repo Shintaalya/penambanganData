@@ -40,9 +40,9 @@ with preprocessing:
     - min = nilai minimum semua data asli
     - max = nilai maksimum semua data asli
     """)
-    df = df.drop(columns=['Subject ID','MRI ID','Hand','M/F','SES'])
+    df = df.drop(columns=['Subject ID','MRI ID','M/F','Hand','SES'])
     #Mendefinisikan Varible X dan Y
-    X = df[['Visit','MR Delay','Age','EDUC','MMSE','CDR','eTIV','nWBV','ASF']]
+    X = df[['Visit','MR Delay','Age','EDUC','MMSE','CDR','eTIV','nWBV','ASV']]
     y = df['Group'].values
     df
     X
@@ -64,7 +64,6 @@ with preprocessing:
     st.subheader('Target Label')
     dumies = pd.get_dummies(df.Group).columns.values.tolist()
     dumies = np.array(dumies)
- 
 
     labels = pd.DataFrame({
         '1' : [dumies[0]],
@@ -72,9 +71,10 @@ with preprocessing:
         '3' : [dumies[2]],
         '4' : [dumies[3]],
         '5' : [dumies[4]],
+        '6' : [dumies[5]],
+        '7' : [dumies[6]],
+        
     })
-
-    st.write(labels)
 
    
 with modeling:
