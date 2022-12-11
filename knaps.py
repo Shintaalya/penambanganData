@@ -23,20 +23,11 @@ description, upload_data, preprocessing, modeling, implementation = st.tabs(["De
 
 with description:
     st.write("""# Description """)
-    st.write("Data Set Ini Adalah : Prediksi Cuaca")
-    st.write("""Menggunakan Kolom  :
-    1. curah hujan
-    2. suhu maks * suhu min
-    3. kecepatan angin""")
-    st.write("""Kita akan memprediksi kondisi cuaca :
-    a. gerimis
-    b. hujan
-    st.write("c. matahari")
-    st.write("d. salju")
-    st.write("e. kabut")
+    st.write("Data Set Ini Adalah : Prediksi Demensia")
+    st.write("Demensia adalah suatu sindrom – biasanya bersifat kronis atau progresif – di mana terjadi penurunan fungsi kognitif (yaitu kemampuan memproses pikiran) melebihi apa yang diharapkan dari penuaan normal. Itu mempengaruhi memori, pemikiran, orientasi, pemahaman, perhitungan, kapasitas belajar, bahasa, dan penilaian. Kesadaran tidak terpengaruh. Penurunan fungsi kognitif biasanya disertai dan kadang-kadang didahului oleh penurunan kontrol emosi, perilaku sosial, atau motivasi. Demensia diakibatkan oleh berbagai penyakit dan cedera yang terutama atau sekunder mempengaruhi otak, seperti penyakit Alzheimer atau stroke.")
 
 with upload_data:
-    df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/seattle-weather.csv')
+    df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/dementia_dataset.csv')
     st.dataframe(df)
 
 with preprocessing:
@@ -49,10 +40,10 @@ with preprocessing:
     - min = nilai minimum semua data asli
     - max = nilai maksimum semua data asli
     """)
-    df = df.drop(columns=['date'])
+    df = df.drop(columns=['Subject ID','MRI ID','M/F','Hand','SES'])
     #Mendefinisikan Varible X dan Y
-    X = df[['precipitation','temp_max','temp_min','wind']]
-    y = df['weather'].values
+    X = df[['Visit','MR Delay','Age','EDUC','MMSE','CDR','eTIV','nWBV','ASF']]
+    y = df['Group'].values
     df
     X
     df_min = X.min()
