@@ -40,9 +40,9 @@ with preprocessing:
     - min = nilai minimum semua data asli
     - max = nilai maksimum semua data asli
     """)
-    df = df.drop(columns=['Subject ID','EDUC','MRI ID','M/F','Hand','SES'])
+    df = df.drop(columns=['Subject ID','MRI ID','M/F','Hand','SES'])
     #Mendefinisikan Varible X dan Y
-    X = df[['Visit','MR Delay','Age','MMSE','CDR','eTIV','nWBV','ASF']]
+    X = df[['Visit','MR Delay','Age','MMSE','EDUC','CDR','eTIV','nWBV','ASF']]
     y = df['Group'].values
     df
     X
