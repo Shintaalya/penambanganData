@@ -38,7 +38,6 @@ with description:
     precipitation
     tempmax * tempmin
     wind
-    """)
 
 
 with upload_data:
