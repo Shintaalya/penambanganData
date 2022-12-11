@@ -35,10 +35,6 @@ with description:
     * salju
     * kabut""")
 
-    Output (keluaran)
-    """)
-    st.write("""Menggunakan Kolom (input) :
-
     precipitation
     tempmax * tempmin
     wind
