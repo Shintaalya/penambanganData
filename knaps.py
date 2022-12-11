@@ -15,30 +15,25 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 st.title("Prediksi Cuaca")
+st.write("======================================================")
 
 description, upload_data, preprocessing, modeling, implementation = st.tabs(["Description", "Data", "Preprocessing", "Modeling", "Implementation"])
 
 with description:
-    st.write("======================================================")
     st.write("Shinta Alya Imani Putri")
     st.write("200411100005")
     st.write("""# Description """)
     st.write("Data Set Ini Adalah : Prediksi Cuaca")
-    st.write("""Menggunakan Kolom  : 
-    * curah hujan
-    * suhu maks * suhu min
-    * angin
-    Kita akan memprediksi kondisi cuaca :
-    * gerimis
-    * hujan
-    * matahari
-    * salju
-    * kabut""")
-
-    precipitation
-    tempmax * tempmin
-    wind
-
+    st.write("""Menggunakan Kolom  :""")
+    st.write("1. curah hujan")
+    st.write("2. suhu maks * suhu min")
+    st.write("3. angin")
+    st.write("Kita akan memprediksi kondisi cuaca :")
+    st.write("a. gerimis")
+    st.write("b. hujan")
+    st.write("c. matahari")
+    st.write("d. salju")
+    st.write("e. kabut")
 
 with upload_data:
     df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/seattle-weather.csv')
@@ -54,10 +49,10 @@ with preprocessing:
     - min = nilai minimum semua data asli
     - max = nilai maksimum semua data asli
     """)
-    df = df.drop(columns=['Length2','Length3'])
+    df = df.drop(columns=['date'])
     #Mendefinisikan Varible X dan Y
-    X = df[['Weight','Length1','Height','Width']]
-    y = df['Species'].values
+    X = df[['precipitation','temp_max','temp_min',['wind'],'weather']]
+    y = df['weather'].values
     df
     X
     df_min = X.min()
@@ -76,7 +71,7 @@ with preprocessing:
     st.write(scaled_features)
 
     st.subheader('Target Label')
-    dumies = pd.get_dummies(df.Species).columns.values.tolist()
+    dumies = pd.get_dummies(df.weather).columns.values.tolist()
     dumies = np.array(dumies)
 
     labels = pd.DataFrame({
