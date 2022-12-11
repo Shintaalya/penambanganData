@@ -16,12 +16,12 @@ from sklearn.tree import DecisionTreeClassifier
 
 st.title("Prediksi Cuaca")
 st.write("======================================================")
+st.write("Shinta Alya Imani Putri")
+st.write("200411100005")
 
 description, upload_data, preprocessing, modeling, implementation = st.tabs(["Description", "Data", "Preprocessing", "Modeling", "Implementation"])
 
 with description:
-    st.write("Shinta Alya Imani Putri")
-    st.write("200411100005")
     st.write("""# Description """)
     st.write("Data Set Ini Adalah : Prediksi Cuaca")
     st.write("""Menggunakan Kolom  :""")
@@ -51,7 +51,7 @@ with preprocessing:
     """)
     df = df.drop(columns=['date'])
     #Mendefinisikan Varible X dan Y
-    X = df[['precipitation','temp_max','temp_min',['wind'],'weather']]
+    X = df[['precipitation','temp_max','temp_min','wind','weather']]
     y = df['weather'].values
     df
     X
