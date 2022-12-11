@@ -64,6 +64,10 @@ with preprocessing:
     st.subheader('Target Label')
     dumies = pd.get_dummies(df.Group).columns.values.tolist()
     dumies = np.array(dumies)
+    try:
+        print(dumies[0])
+    except IndexError:
+        print('array is empty')
 
     labels = pd.DataFrame({
         '1' : [dumies[0]],
