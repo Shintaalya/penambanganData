@@ -97,7 +97,7 @@ with preprocessing:
     """)
     
     #Mendefinisikan Varible X dan Y
-    X = df[["diameter","weight","red","green","blue"]]
+    X = df[["diameter","weight","green","blue"]]
     y = df["name"].values
     df
     X
