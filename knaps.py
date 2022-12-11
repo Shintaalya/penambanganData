@@ -40,6 +40,7 @@ with preprocessing:
     - min = nilai minimum semua data asli
     - max = nilai maksimum semua data asli
     """)
+    df = df.drop(columns=['Subject ID','MRI ID'])
     df = df.drop(columns=['M/F','Hand'])
     #Mendefinisikan Varible X dan Y
     X = df[['Visit','MR Delay','SES','Age','EDUC','MMSE','CDR','eTIV','nWBV','ASF']]
