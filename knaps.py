@@ -69,12 +69,12 @@ with preprocessing:
         '1' : [dumies[0]],
         '2' : [dumies[1]],
         '3' : [dumies[2]],
-        '4' : [dumies[4]],
-        '5' : [dumies[5]],
-        '6' : [dumies[6]],
-        '7' : [dumies[7]],
-        '8' : [dumies[8]],
-        '9' : [dumies[9]],
+        '4' : [dumies[3]],
+        '5' : [dumies[4]],
+        '6' : [dumies[5]],
+        '7' : [dumies[6]],
+        '8' : [dumies[7]],
+        '9' : [dumies[8]],
     })
 
     st.write(labels)
