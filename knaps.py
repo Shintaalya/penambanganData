@@ -70,7 +70,7 @@ with preprocessing:
         '1' : [dumies[0]],
         '2' : [dumies[1]],
         '3' : [dumies[2]],
-    
+        '4' : [dumies[3]],
     })
 
     st.write(labels)
