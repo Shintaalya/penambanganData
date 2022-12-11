@@ -82,7 +82,7 @@ with data_set_description:
     st.write("###### Untuk Wa saya anda bisa hubungi nomer ini : http://wa.me/6285704097096 ")
 
 with data:
-    df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/citrus.csv)
+    df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/citrus.csv')
     st.dataframe(df)
 
 with preprocessing:
