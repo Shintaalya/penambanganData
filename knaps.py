@@ -27,7 +27,7 @@ with description:
     st.write("Demensia adalah suatu sindrom – biasanya bersifat kronis atau progresif – di mana terjadi penurunan fungsi kognitif (yaitu kemampuan memproses pikiran) melebihi apa yang diharapkan dari penuaan normal. Itu mempengaruhi memori, pemikiran, orientasi, pemahaman, perhitungan, kapasitas belajar, bahasa, dan penilaian. Kesadaran tidak terpengaruh. Penurunan fungsi kognitif biasanya disertai dan kadang-kadang didahului oleh penurunan kontrol emosi, perilaku sosial, atau motivasi. Demensia diakibatkan oleh berbagai penyakit dan cedera yang terutama atau sekunder mempengaruhi otak, seperti penyakit Alzheimer atau stroke.")
 
 with upload_data:
-    df = pd.read_table('https://raw.githubusercontent.com/Shintaalya/Datafile/main/dementia_dataset.csv')
+    df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/dementia_dataset.csv')
     st.dataframe(df)
 
 with preprocessing:
