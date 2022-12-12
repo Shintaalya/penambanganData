@@ -30,12 +30,12 @@ with data_set_description:
     st.write("""Terdapat 6 kolom """)
     st.write("""Yaitu :
     
-    Name, 
-    Diameter, 
-    Weight, 
-    Red, 
-    Green, 
-    Blue
+    1. Name 
+    2. Diameter 
+    3. Weight
+    4. Red
+    5. Green 
+    6. Blue
     """)
     
     st.write("Link Dataset pada kaggle : https://www.kaggle.com/datasets/joshmcadams/oranges-vs-grapefruit")
