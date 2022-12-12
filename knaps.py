@@ -44,6 +44,7 @@ with data_set_description:
     st.write("Link github Aplikasi : https://github.com/Shintaalya/penambanganData")
     
 with data:
+    st.write("# Dataset ")
     df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/citrus.csv')
     st.dataframe(df)
 
