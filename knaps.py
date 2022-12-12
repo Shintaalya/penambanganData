@@ -28,9 +28,18 @@ with data_set_description:
     st.write("Data Set Ini Adalah : Klasifikasi Orange vs Grapefruit")
     st.write("""Tugas memisahkan jeruk dan grapefruit cukup jelas bagi manusia, tetapi bahkan dengan pengamatan manual masih ada sedikit kesalahan. Kumpulan data ini mengambil warna, berat, dan diameter jeruk dan jeruk bali "rata-rata" dan menghasilkan kumpulan data yang lebih besar yang berisi beragam nilai dan merupakan "jeruk" dan "jeruk bali".""")
     st.write("""Terdapat 6 kolom """)
-    st.write("""Yaitu : Name, Diameter, Weight, Red, Green, Blue""")
+    st.write("""Yaitu :
     
-    st.write("Data pada kaggle : https://www.kaggle.com/datasets/joshmcadams/oranges-vs-grapefruit")
+    Name, 
+    Diameter, 
+    Weight, 
+    Red, 
+    Green, 
+    Blue
+    """)
+    
+    st.write("Link Dataset pada kaggle : https://www.kaggle.com/datasets/joshmcadams/oranges-vs-grapefruit")
+    st.write("Link github Aplikasi : https://github.com/Shintaalya/penambanganData")
     
 with data:
     df = pd.read_csv('https://raw.githubusercontent.com/Shintaalya/Datafile/main/citrus.csv')
