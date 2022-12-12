@@ -53,7 +53,7 @@ with preprocessing:
     st.write("""Rumus Normalisasi Data :""")
     st.image('https://i.stack.imgur.com/EuitP.png', use_column_width=False, width=250)
     st.markdown("""
-    Dimana :
+    Keterangan :
     - X = data yang akan dinormalisasi atau data asli
     - min = nilai minimum semua data asli
     - max = nilai maksimum semua data asli
