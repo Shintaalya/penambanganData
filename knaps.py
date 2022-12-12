@@ -16,7 +16,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 st.title("Classification Orange vs Grapefruit")
 
-st.write("===================================================================================")
+st.write("=====================================================================================")
 
 st.write("Shinta Alya Imani Putri")
 st.write("200411100005")
