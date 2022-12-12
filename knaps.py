@@ -29,6 +29,7 @@ with data_set_description:
     st.write("""Tugas memisahkan jeruk dan grapefruit cukup jelas bagi manusia, tetapi bahkan dengan pengamatan manual masih ada sedikit kesalahan. Kumpulan data ini mengambil warna, berat, dan diameter jeruk dan jeruk bali "rata-rata" dan menghasilkan kumpulan data yang lebih besar yang berisi beragam nilai dan merupakan "jeruk" dan "jeruk bali".""")
     st.write("""Terdapat 6 kolom """)
     st.write("""Yaitu :
+    
     1. Name 
     2. Diameter 
     3. Weight
